@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Управление автосалоном</title>
-  <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
     body{font-family:'Roboto Mono',monospace;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.neon-border-dark{box-shadow:0 0 5px #ff0000,0 0 15px #ff0000,0 0 25px #ff0000}.neon-text-dark{text-shadow:0 0 5px #ff0000,0 0 10px #ff0000}.neon-border-light{box-shadow:0 0 5px #ff3333,0 0 15px #ff3333,0 0 25px #ff3333}.neon-text-light{text-shadow:0 0 5px #ff3333,0 0 10px #ff3333}.hover-neon:hover{box-shadow:0 0 10px #ff3333,0 0 15px #ff3333;transition:all .3s ease}.table-container{overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-behavior:smooth}table{min-width:600px;width:100%;table-layout:auto}th,td{font-size:.75rem;padding:.25rem .5rem;word-break:break-word;overflow-wrap:break-word;text-align:left;border-width:1px;border-color:#374151}@media (min-width:640px){th,td{font-size:.875rem;padding:.5rem}}.modal-content{width:95%;max-width:320px;margin:0 auto}.dark-theme{background-color:#1a1a1a;color:#fff}.light-theme{background-color:#f5f5f5;color:#1a1a1a}.error-message{background-color:#ff3333;color:#fff;padding:.75rem;border-radius:.375rem;text-align:center;font-size:.875rem}.success-message{background-color:#16a34a;color:#fff;padding:.75rem;border-radius:.375rem;text-align:center;font-size:.875rem}.container{max-width:1280px;margin-left:auto;margin-right:auto;padding:.5rem}@media (min-width:640px){.container{padding:1rem}}.mx-auto{margin-left:auto;margin-right:auto}.p-2{padding:.5rem}.sm\:p-4{padding:1rem}.flex{display:flex}.flex-col{flex-direction:column}.sm\:flex-row{flex-direction:row}.justify-between{justify-content:space-between}.items-center{align-items:center}.gap-2{gap:.5rem}.mb-4{margin-bottom:1rem}.sm\:mb-6{margin-bottom:1.5rem}.text-xl{font-size:1.25rem}.sm\:text-2xl{font-size:1.5rem}.font-bold{font-weight:700}.text-center{text-align:center}.px-2{padding-left:.5rem;padding-right:.5rem}.sm\:px-3{padding-left:.75rem;padding-right:.75rem}.py-1{padding-top:.25rem;padding-bottom:.25rem}.sm\:py-2{padding-top:.5rem;padding-bottom:.5rem}.rounded{border-radius:.25rem}.text-xs{font-size:.75rem}.sm\:text-sm{font-size:.875rem}.bg-red-600{background-color:#dc2626}.text-white{color:#fff}.bg-gray-600{background-color:#4b5563}.bg-green-600{background-color:#16a34a}.grid{display:grid}.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.sm\:grid-cols-5{grid-template-columns:repeat(5,minmax(0,1fr))}.gap-1{gap:.25rem}.sm\:gap-2{gap:.5rem}.bg-gray-800{background-color:#1f2937}.bg-gray-200{background-color:#e5e7eb}.border{border-width:1px}.border-gray-700{border-color:#374151}.border-gray-300{border-color:#d1d5db}.focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}.focus\:ring-2:focus{--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;box-shadow:0 0 #0000,0 0 #0000,0 0 0 2px rgba(239,68,68,.5)}.focus\:ring-red-600:focus{--tw-ring-color:#dc2626}.table-auto{table-layout:auto}.border-collapse{border-collapse:collapse}.hover\:bg-gray-700:hover{background-color:#374151}.transition-colors{transition-property:color,background-color,border-color;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.bg-red-900{background-color:#7f1d1d}.text-red-500{color:#ef4444}.mr-1{margin-right:.25rem}.sm\:mr-2{margin-right:.5rem}.fixed{position:fixed}.inset-0{top:0;right:0;bottom:0;left:0}.bg-black{background-color:#000}.bg-opacity-75{--tw-bg-opacity:.75}.max-h-48{max-height:12rem}.overflow-y-auto{overflow-y:auto}.mt-3{margin-top:.75rem}.cursor-pointer{cursor:pointer}.ml-2{margin-left:.5rem}input,select,textarea{font-size:.875rem;padding:.5rem;width:100%;box-sizing:border-box}.w-full{width:100%}button{min-height:2.5rem;min-width:4rem;touch-action:manipulation}
@@ -13,7 +14,7 @@
 </head>
 <body>
   <div id="root"></div>
-  <script>
+  <script type="text/javascript">
     // Error Boundary Component
     class ErrorBoundary extends React.Component {
       constructor(props) {
@@ -71,17 +72,33 @@
       const [error, setError] = React.useState(null);
       const [success, setSuccess] = React.useState(null);
 
-      // Load data from data.json with retry
+      // GitHub API configuration
+      const GITHUB_TOKEN = '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'; // Replace with your GitHub token
+      const REPO_OWNER = 'Vitalik0602'; // Replace with your GitHub username
+      const REPO_NAME = 'pan'; // Replace with your repo name
+      const FILE_PATH = 'data.json';
+      const API_URL = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`;
+
+      // Load data from GitHub
       function loadData(attempt = 1, maxAttempts = 3) {
-        fetch('/data.json')
+        fetch(API_URL, {
+          headers: {
+            Authorization: `Bearer ${GITHUB_TOKEN}`,
+            Accept: 'application/vnd.github+json'
+          }
+        })
           .then(response => {
             if (!response.ok) throw new Error(`Ошибка загрузки данных: ${response.status}`);
             return response.json();
           })
           .then(data => {
-            setCars(data.cars || []);
-            setTheme(data.theme || 'dark');
-            document.body.className = (data.theme || 'dark') === 'dark' ? 'dark-theme' : 'light-theme';
+            const content = JSON.parse(atob(data.content));
+            setCars(content.cars.map(car => ({
+              ...car,
+              history: car.history || []
+            })));
+            setTheme(content.theme || 'dark');
+            document.body.className = (content.theme || 'dark') === 'dark' ? 'dark-theme' : 'light-theme';
             setError(null);
           })
           .catch(err => {
@@ -89,7 +106,7 @@
             if (attempt < maxAttempts) {
               setTimeout(() => loadData(attempt + 1, maxAttempts), 1000);
             } else {
-              setError('Не удалось загрузить данные. Проверьте подключение и файл data.json.');
+              setError('Не удалось загрузить данные. Проверьте токен GitHub или файл data.json.');
             }
           });
       }
@@ -99,20 +116,42 @@
         loadData();
       }, []);
 
-      // Save data to data.json
+      // Save data to GitHub
       function saveData(newCars, newTheme) {
-        fetch('/data.json', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ cars: newCars, theme: newTheme })
+        fetch(API_URL, {
+          headers: {
+            Authorization: `Bearer ${GITHUB_TOKEN}`,
+            Accept: 'application/vnd.github+json'
+          }
         })
+          .then(response => {
+            if (!response.ok) throw new Error(`Ошибка получения SHA: ${response.status}`);
+            return response.json();
+          })
+          .then(data => {
+            const sha = data.sha;
+            const content = JSON.stringify({ cars: newCars, theme: newTheme }, null, 2);
+            return fetch(API_URL, {
+              method: 'PUT',
+              headers: {
+                Authorization: `Bearer ${GITHUB_TOKEN}`,
+                Accept: 'application/vnd.github+json',
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                message: 'Update data.json',
+                content: btoa(unescape(encodeURIComponent(content))),
+                sha: sha
+              })
+            });
+          })
           .then(response => {
             if (!response.ok) throw new Error(`Ошибка сохранения данных: ${response.status}`);
             setSuccess('Данные сохранены. Нажмите "Обновить" на других устройствах.');
             setTimeout(() => setSuccess(null), 3000);
           })
           .catch(err => {
-            setError('Ошибка сохранения данных. Попробуйте снова.');
+            setError('Ошибка сохранения данных. Проверьте токен или права доступа.');
             console.error('Fetch save error:', err);
           });
       }
@@ -146,7 +185,7 @@
               details: editCar ? `Изменены данные` : `Добавлен автомобиль ${formData.brand} ${formData.model}`
             }
           ];
-          const newCar = { ...formData, status: newStatus, history: newHistory, id: editCar ? editCar.id : Date.now() };
+          const newCar = { ...formData, status: newStatus, history: newHistory, id: editCar ? editCar.id : String(Date.now()) };
           let updatedCars;
           if (editCar) {
             updatedCars = cars.map(car => car.id === editCar.id ? newCar : car);
@@ -333,18 +372,18 @@
               "div",
               { className: "text-center" },
               React.createElement("p", { className: "text-xs sm:text-sm" }, "Ближайшее ТО (км)"),
-              React.createElement("p", { className: "text-sm sm:text-base font-bold" }, stats.nearestService === Infinity ? '-' : stats.nearestService)
+              React.createElement("p", { className: "text-sm sm:text-base font-bold" }, stats.nearestService === Infinity ? 'N/A' : stats.nearestService)
             )
           ),
           React.createElement(
             "div",
-            { className: "flex flex-col gap-2 mb-4" },
+            { className: "flex flex-col sm:flex-row gap-2 mb-4" },
             React.createElement(
               "select",
               {
                 value: filterStatus,
                 onChange: e => setFilterStatus(e.target.value),
-                className: `p-2 ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-gray-200 border-gray-300'} border rounded focus:outline-none focus:ring-2 focus:ring-red-600 text-xs sm:text-sm`
+                className: `p-2 ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-gray-200 border-gray-300'} rounded focus:outline-none focus:ring-2 focus:ring-red-600 text-xs sm:text-sm`
               },
               React.createElement("option", { value: "все" }, "Все статусы"),
               React.createElement("option", { value: "в наличии" }, "В наличии"),
@@ -356,28 +395,28 @@
               {
                 value: filterCategory,
                 onChange: e => setFilterCategory(e.target.value),
-                className: `p-2 ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-gray-200 border-gray-300'} border rounded focus:outline-none focus:ring-2 focus:ring-red-600 text-xs sm:text-sm`
+                className: `p-2 ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-gray-200 border-gray-300'} rounded focus:outline-none focus:ring-2 focus:ring-red-600 text-xs sm:text-sm`
               },
               React.createElement("option", { value: "все" }, "Все категории"),
               React.createElement("option", { value: "эконом" }, "Эконом"),
-              React.createElement("option", { value: "премиум" }, "Премиум"),
-              React.createElement("option", { value: "внедорожник" }, "Внедорожник")
+              React.createElement("option", { value: "комфорт" }, "Комфорт"),
+              React.createElement("option", { value: "премиум" }, "Премиум")
             ),
             React.createElement(
               "input",
               {
                 type: "text",
-                placeholder: "Поиск по марке или модели...",
+                placeholder: "Поиск по марке или модели",
                 value: searchQuery,
                 onChange: e => setSearchQuery(e.target.value),
-                className: `p-2 ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-gray-200 border-gray-300'} border rounded focus:outline-none focus:ring-2 focus:ring-red-600 text-xs sm:text-sm`
+                className: `p-2 ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-gray-200 border-gray-300'} rounded focus:outline-none focus:ring-2 focus:ring-red-600 text-xs sm:text-sm`
               }
             ),
             React.createElement(
               "button",
               {
                 onClick: () => setShowModal(true),
-                className: "bg-red-600 text-white px-2 sm:px-3 py-1 sm:py-2 rounded hover-neon text-xs sm:text-sm"
+                className: `px-2 sm:px-3 py-1 sm:py-2 rounded text-xs sm:text-sm bg-red-600 text-white hover-neon`
               },
               "Добавить автомобиль"
             )
@@ -394,69 +433,75 @@
                 React.createElement(
                   "tr",
                   { className: theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200' },
-                  React.createElement("th", { className: "border border-gray-700 cursor-pointer", onClick: () => handleSort('brand') }, "Марка ", sortConfig.key === 'brand' && (sortConfig.direction === 'asc' ? '↑' : '↓')),
-                  React.createElement("th", { className: "border border-gray-700 cursor-pointer", onClick: () => handleSort('model') }, "Модель ", sortConfig.key === 'model' && (sortConfig.direction === 'asc' ? '↑' : '↓')),
-                  React.createElement("th", { className: "border border-gray-700 cursor-pointer", onClick: () => handleSort('category') }, "Категория ", sortConfig.key === 'category' && (sortConfig.direction === 'asc' ? '↑' : '↓')),
-                  React.createElement("th", { className: "border border-gray-700 cursor-pointer", onClick: () => handleSort('status') }, "Статус ", sortConfig.key === 'status' && (sortConfig.direction === 'asc' ? '↑' : '↓')),
-                  React.createElement("th", { className: "border border-gray-700 cursor-pointer", onClick: () => handleSort('rentPeriod') }, "Срок аренды ", sortConfig.key === 'rentPeriod' && (sortConfig.direction === 'asc' ? '↑' : '↓')),
-                  React.createElement("th", { className: "border border-gray-700 cursor-pointer", onClick: () => handleSort('mileage') }, "Пробег (км) ", sortConfig.key === 'mileage' && (sortConfig.direction === 'asc' ? '↑' : '↓')),
-                  React.createElement("th", { className: "border border-gray-700 cursor-pointer", onClick: () => handleSort('milesToService') }, "До ТО (км) ", sortConfig.key === 'milesToService' && (sortConfig.direction === 'asc' ? '↑' : '↓')),
-                  React.createElement("th", { className: "border border-gray-700" }, "Примечания"),
-                  React.createElement("th", { className: "border border-gray-700" }, "Действия")
+                  ['Марка', 'Модель', 'Статус', 'Срок аренды', 'Пробег (км)', 'До ТО (км)', 'Категория', 'Примечания', 'История', 'Действия'].map((header, index) => {
+                    const keyMap = {
+                      'Марка': 'brand',
+                      'Модель': 'model',
+                      'Статус': 'status',
+                      'Пробег (км)': 'mileage',
+                      'До ТО (км)': 'milesToService',
+                      'Категория': 'category'
+                    };
+                    return React.createElement(
+                      "th",
+                      {
+                        key: header,
+                        className: `border ${theme === 'dark' ? 'border-gray-700' : 'border-gray-300'} cursor-pointer`,
+                        onClick: () => ['Марка', 'Модель', 'Статус', 'Пробег (км)', 'До ТО (км)', 'Категория'].includes(header) && handleSort(keyMap[header])
+                      },
+                      header,
+                      keyMap[header] && sortConfig.key === keyMap[header] && (sortConfig.direction === 'asc' ? ' ↑' : ' ↓')
+                    );
+                  })
                 )
               ),
               React.createElement(
                 "tbody",
                 null,
-                filteredCars.map(car =>
+                filteredCars.map(car => React.createElement(
+                  "tr",
+                  { key: car.id, className: "hover:bg-gray-700 transition-colors" },
+                  React.createElement("td", { className: `border ${theme === 'dark' ? 'border-gray-700' : 'border-gray-300'}` }, car.brand),
+                  React.createElement("td", { className: `border ${theme === 'dark' ? 'border-gray-700' : 'border-gray-300'}` }, car.model),
+                  React.createElement("td", { className: `border ${theme === 'dark' ? 'border-gray-700' : 'border-gray-300'}` }, car.status),
+                  React.createElement("td", { className: `border ${theme === 'dark' ? 'border-gray-700' : 'border-gray-300'}` }, car.rentPeriod),
+                  React.createElement("td", { className: `border ${theme === 'dark' ? 'border-gray-700' : 'border-gray-300'}` }, car.mileage),
+                  React.createElement("td", { className: `border ${theme === 'dark' ? 'border-gray-700' : 'border-gray-300'}` }, calculateMilesToService(car.mileage)),
+                  React.createElement("td", { className: `border ${theme === 'dark' ? 'border-gray-700' : 'border-gray-300'}` }, car.category),
+                  React.createElement("td", { className: `border ${theme === 'dark' ? 'border-gray-700' : 'border-gray-300'}` }, car.notes),
                   React.createElement(
-                    "tr",
-                    {
-                      key: car.id,
-                      className: `hover:bg-gray-700 transition-colors ${calculateMilesToService(car.mileage) < 1000 ? 'bg-red-900' : ''}`
-                    },
-                    React.createElement("td", { className: "border border-gray-700" }, car.brand),
-                    React.createElement("td", { className: "border border-gray-700" }, car.model),
-                    React.createElement("td", { className: "border border-gray-700" }, car.category),
-                    React.createElement("td", { className: "border border-gray-700" }, car.status),
-                    React.createElement("td", { className: "border border-gray-700" }, car.rentPeriod),
-                    React.createElement("td", { className: "border border-gray-700" }, car.mileage),
+                    "td",
+                    { className: `border ${theme === 'dark' ? 'border-gray-700' : 'border-gray-300'}` },
                     React.createElement(
-                      "td",
-                      { className: `border border-gray-700 ${calculateMilesToService(car.mileage) < 1000 ? 'text-red-500 neon-text-dark' : ''}` },
-                      calculateMilesToService(car.mileage)
+                      "button",
+                      {
+                        onClick: () => setShowHistory(car.id),
+                        className: "bg-blue-600 text-white px-2 py-1 rounded hover-neon text-xs sm:text-sm"
+                      },
+                      "История"
+                    )
+                  ),
+                  React.createElement(
+                    "td",
+                    { className: `border ${theme === 'dark' ? 'border-gray-700' : 'border-gray-300'}` },
+                    React.createElement(
+                      "button",
+                      {
+                        onClick: () => handleEdit(car),
+                        className: "bg-blue-600 text-white px-2 py-1 rounded mr-1 sm:mr-2 hover-neon text-xs sm:text-sm"
+                      },
+                      "Редактировать"
                     ),
-                    React.createElement("td", { className: "border border-gray-700" }, car.notes),
                     React.createElement(
-                      "td",
-                      { className: "border border-gray-700" },
-                      React.createElement(
-                        "button",
-                        {
-                          onClick: () => handleEdit(car),
-                          className: "bg-blue-600 text-white px-2 py-1 rounded mr-1 hover-neon text-xs"
-                        },
-                        "Редактировать"
-                      ),
-                      React.createElement(
-                        "button",
-                        {
-                          onClick: () => handleDelete(car.id),
-                          className: "bg-red-600 text-white px-2 py-1 rounded mr-1 hover-neon text-xs"
-                        },
-                        "Удалить"
-                      ),
-                      React.createElement(
-                        "button",
-                        {
-                          onClick: () => setShowHistory(car),
-                          className: "bg-green-600 text-white px-2 py-1 rounded hover-neon text-xs"
-                        },
-                        "История"
-                      )
+                      "button",
+                      {
+                        onClick: () => handleDelete(car.id),
+                        className: "bg-red-600 text-white px-2 py-1 rounded hover-neon text-xs sm:text-sm"
+                      },
+                      "Удалить"
                     )
                   )
-                )
+                ))
               )
             )
           ),
@@ -465,125 +510,90 @@
             { className: "fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center" },
             React.createElement(
               "div",
-              { className: `modal-content ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-100'} p-2 sm:p-4 rounded-lg ${theme === 'dark' ? 'neon-border-dark' : 'neon-border-light'}` },
+              { className: `modal-content ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-200'} p-4 sm:p-6 rounded-lg ${theme === 'dark' ? 'neon-border-dark' : 'neon-border-light'}` },
               React.createElement(
                 "h2",
-                { className: `text-base sm:text-xl mb-3 ${theme === 'dark' ? 'neon-text-dark' : 'neon-text-light'}` },
+                { className: `text-xl sm:text-2xl mb-4 ${theme === 'dark' ? 'neon-text-dark' : 'neon-text-light'}` },
                 editCar ? 'Редактировать автомобиль' : 'Добавить автомобиль'
               ),
               React.createElement(
-                "form",
-                { onSubmit: handleSubmit },
+                "div",
+                null,
+                ['brand:Марка', 'model:Модель', 'rentPeriod:Срок аренды', 'mileage:Пробег (км)', 'notes:Примечания'].map(field => {
+                  const [name, label] = field.split(':');
+                  return React.createElement(
+                    "div",
+                    { key: name, className: "mb-3 sm:mb-4" },
+                    React.createElement("label", { className: "block mb-1 text-sm sm:text-base" }, label),
+                    name === 'notes' ?
+                      React.createElement(
+                        "textarea",
+                        {
+                          name: name,
+                          value: formData[name],
+                          onChange: handleInputChange,
+                          className: `w-full p-2 ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-gray-200 border-gray-300'} rounded focus:outline-none focus:ring-2 focus:ring-red-600`
+                        }
+                      ) :
+                      React.createElement(
+                        "input",
+                        {
+                          type: name === 'mileage' ? 'number' : 'text',
+                          name: name,
+                          value: formData[name],
+                          onChange: handleInputChange,
+                          className: `w-full p-2 ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-gray-200 border-gray-300'} rounded focus:outline-none focus:ring-2 focus:ring-red-600`,
+                          required: ['brand', 'model'].includes(name)
+                        }
+                      )
+                  );
+                }),
                 React.createElement(
                   "div",
-                  { className: "mb-3" },
-                  React.createElement("label", { className: "block mb-1 text-xs sm:text-sm" }, "Марка"),
+                  { className: "mb-3 sm:mb-4" },
+                  React.createElement("label", { className: "block mb-1 text-sm sm:text-base" }, "Статус"),
                   React.createElement(
-                    "input",
+                    "select",
                     {
-                      type: "text",
-                      name: "brand",
-                      value: formData.brand,
+                      name: "status",
+                      value: formData.status,
                       onChange: handleInputChange,
-                      className: `w-full p-2 ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-gray-200 border-gray-300'} border rounded focus:outline-none focus:ring-2 focus:ring-red-600 text-xs sm:text-sm`,
-                      required: true
-                    }
+                      className: `w-full p-2 ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-gray-200 border-gray-300'} rounded focus:outline-none focus:ring-2 focus:ring-red-600`
+                    },
+                    ['в наличии', 'в аренде', 'продан'].map(status => React.createElement("option", { key: status, value: status }, status))
                   )
                 ),
                 React.createElement(
                   "div",
-                  { className: "mb-3" },
-                  React.createElement("label", { className: "block mb-1 text-xs sm:text-sm" }, "Модель"),
-                  React.createElement(
-                    "input",
-                    {
-                      type: "text",
-                      name: "model",
-                      value: formData.model,
-                      onChange: handleInputChange,
-                      className: `w-full p-2 ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-gray-200 border-gray-300'} border rounded focus:outline-none focus:ring-2 focus:ring-red-600 text-xs sm:text-sm`,
-                      required: true
-                    }
-                  )
-                ),
-                React.createElement(
-                  "div",
-                  { className: "mb-3" },
-                  React.createElement("label", { className: "block mb-1 text-xs sm:text-sm" }, "Категория"),
+                  { className: "mb-3 sm:mb-4" },
+                  React.createElement("label", { className: "block mb-1 text-sm sm:text-base" }, "Категория"),
                   React.createElement(
                     "select",
                     {
                       name: "category",
                       value: formData.category,
                       onChange: handleInputChange,
-                      className: `w-full p-2 ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-gray-200 border-gray-300'} border rounded focus:outline-none focus:ring-2 focus:ring-red-600 text-xs sm:text-sm`
+                      className: `w-full p-2 ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-gray-200 border-gray-300'} rounded focus:outline-none focus:ring-2 focus:ring-red-600`
                     },
-                    React.createElement("option", { value: "эконом" }, "Эконом"),
-                    React.createElement("option", { value: "премиум" }, "Премиум"),
-                    React.createElement("option", { value: "внедорожник" }, "Внедорожник")
+                    ['эконом', 'комфорт', 'премиум'].map(category => React.createElement("option", { key: category, value: category }, category))
                   )
                 ),
                 React.createElement(
                   "div",
-                  { className: "mb-3" },
-                  React.createElement("label", { className: "block mb-1 text-xs sm:text-sm" }, "Срок аренды"),
-                  React.createElement(
-                    "input",
-                    {
-                      type: "date",
-                      name: "rentPeriod",
-                      value: formData.rentPeriod,
-                      onChange: handleInputChange,
-                      className: `w-full p-2 ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-gray-200 border-gray-300'} border rounded focus:outline-none focus:ring-2 focus:ring-red-600 text-xs sm:text-sm`
-                    }
-                  )
-                ),
-                React.createElement(
-                  "div",
-                  { className: "mb-3" },
-                  React.createElement("label", { className: "block mb-1 text-xs sm:text-sm" }, "Пробег (км)"),
-                  React.createElement(
-                    "input",
-                    {
-                      type: "number",
-                      name: "mileage",
-                      value: formData.mileage,
-                      onChange: handleInputChange,
-                      className: `w-full p-2 ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-gray-200 border-gray-300'} border rounded focus:outline-none focus:ring-2 focus:ring-red-600 text-xs sm:text-sm`
-                    }
-                  )
-                ),
-                React.createElement(
-                  "div",
-                  { className: "mb-3" },
-                  React.createElement("label", { className: "block mb-1 text-xs sm:text-sm" }, "Примечания"),
-                  React.createElement(
-                    "textarea",
-                    {
-                      name: "notes",
-                      value: formData.notes,
-                      onChange: handleInputChange,
-                      className: `w-full p-2 ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-gray-200 border-gray-300'} border rounded focus:outline-none focus:ring-2 focus:ring-red-600 text-xs sm:text-sm`
-                    }
-                  )
-                ),
-                React.createElement(
-                  "div",
-                  { className: "flex justify-end gap-1" },
+                  { className: "flex justify-end" },
                   React.createElement(
                     "button",
                     {
-                      type: "button",
                       onClick: () => setShowModal(false),
-                      className: `bg-gray-600 text-white px-2 sm:px-3 py-1 sm:py-2 rounded hover-neon text-xs sm:text-sm`
+                      className: `bg-gray-600 text-white px-3 sm:px-4 py-2 rounded mr-1 sm:mr-2 hover-neon text-sm sm:text-base`
                     },
                     "Отмена"
                   ),
                   React.createElement(
                     "button",
                     {
-                      type: "submit",
-                      className: "bg-red-600 text-white px-2 sm:px-3 py-1 sm:py-2 rounded hover-neon text-xs sm:text-sm"
+                      onClick: handleSubmit,
+                      className: `bg-red-600 text-white px-3 sm:px-4 py-2 rounded hover-neon text-sm sm:text-base`
                     },
                     editCar ? 'Сохранить' : 'Добавить'
                   )
@@ -596,23 +606,20 @@
             { className: "fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center" },
             React.createElement(
               "div",
-              { className: `modal-content ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-100'} p-2 sm:p-4 rounded-lg ${theme === 'dark' ? 'neon-border-dark' : 'neon-border-light'}` },
+              { className: `modal-content ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-200'} p-4 sm:p-6 rounded-lg ${theme === 'dark' ? 'neon-border-dark' : 'neon-border-light'}` },
               React.createElement(
                 "h2",
-                { className: `text-base sm:text-xl mb-3 ${theme === 'dark' ? 'neon-text-dark' : 'neon-text-light'}` },
-                `История: ${showHistory.brand} ${showHistory.model}`
+                { className: `text-xl sm:text-2xl mb-4 ${theme === 'dark' ? 'neon-text-dark' : 'neon-text-light'}` },
+                "История изменений"
               ),
               React.createElement(
                 "div",
                 { className: "max-h-48 overflow-y-auto" },
-                showHistory.history.map((entry, index) =>
-                  React.createElement(
-                    "div",
-                    { key: index, className: "mb-2" },
-                    React.createElement("p", { className: "text-xs sm:text-sm" }, React.createElement("strong", null, entry.action), ` (${new Date(entry.date).toLocaleString()}):`),
-                    React.createElement("p", { className: "text-xs sm:text-sm" }, entry.details)
-                  )
-                )
+                cars.find(car => car.id === showHistory)?.history.map((entry, index) => React.createElement(
+                  "div",
+                  { key: index, className: "mb-2" },
+                  React.createElement("p", { className: "text-sm" }, `${entry.action} (${new Date(entry.date).toLocaleString()}): ${entry.details}`)
+                ))
               ),
               React.createElement(
                 "div",
@@ -621,7 +628,7 @@
                   "button",
                   {
                     onClick: () => setShowHistory(null),
-                    className: "bg-gray-600 text-white px-2 sm:px-3 py-1 sm:py-2 rounded hover-neon text-xs sm:text-sm"
+                    className: `bg-gray-600 text-white px-3 sm:px-4 py-2 rounded hover-neon text-sm sm:text-base`
                   },
                   "Закрыть"
                 )
@@ -632,20 +639,7 @@
       );
     }
 
-    // Render with error handling
-    try {
-      ReactDOM.render(
-        React.createElement(App),
-        document.getElementById('root')
-      );
-    } catch (e) {
-      document.getElementById('root').innerHTML = `
-        <div class="error-message">
-          Ошибка загрузки приложения: ${e.message}. Пожалуйста, проверьте подключение к интернету и обновите страницу.
-        </div>
-      `;
-      console.error('Render error:', e);
-    }
+    ReactDOM.render(React.createElement(App), document.getElementById('root'));
   </script>
 </body>
 </html>
